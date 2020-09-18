@@ -32,16 +32,16 @@ function CreatePlot(id){
 
         //---- Demographic data--------------------------------------------------
         var metadata = data.metadata;
-        console.log(metadata);
+        // console.log(metadata);
 
-        var idinfo = metadata.filter(x => x.id.toString() === id)[0];
+        var info = metadata.filter(x => x.id.toString() === id)[0];
 
         var demoinfo = d3.select('#sample-metadata');
 
         demoinfo.html("");
 
-        Object.entries(idinfo).forEach((a) => {
-            demoinfo.append("h5").text(a[0].toUpperCase()+ ": " + a[1] + "\n");
+        Object.entries(info).forEach((x) => {
+            demoinfo.append("h4").text(x[0].toUpperCase()+ ": " + x[1] + "\n");
         });
 
         //----------BAR CHART--------------------------------------------------
@@ -79,26 +79,6 @@ function CreatePlot(id){
     });
 }
     
-// Function to get necessary data
-
-// function datasort(id){
-//     d3.json("data/samples.json").then((data)=> {
-        
-//         var metadata = data.metadata;
-//         console.log(metadata);
-
-//         var idinfo = metadata.filter(x => x.id.toString() === id)[0];
-
-//         var demoinfo = d3.select('#sample-metadata');
-
-//         demoinfo.html("");
-
-//         Object.entries(idinfo).forEach((a) => {
-//             demoinfo.append("h5").text(a[0].toUpperCase()+ ": " + a[1] + "\n");
-//         });
-//     });
-// }
-    
 // Function intilzie the page
 
 function init(){
@@ -116,8 +96,6 @@ function init(){
         //datasort(data.names[0]);
     
     });
-
-    
 };
 
 // fuction called out in index.HTML, perfrom same look and plot when dropdown value is changed
