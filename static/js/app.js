@@ -22,14 +22,12 @@ function CreatePlot(id){
         var xLables = xSample.otu_labels.slice(0,10);
         //console.log(xLables);
 
-        console.log(TopTen_xSample);
-        console.log(PlotID);
+        //console.log(TopTen_xSample);
+        //console.log(PlotID);
 
         var xSample_freq = data.metadata.filter(x => x.id.toString() === id)[0];
         var wfreq = xSample_freq.wfreq;
-        console.log(`washing freq: ${wfreq}`)
-
-
+        
         //---- Demographic data--------------------------------------------------
         var metadata = data.metadata;
         // console.log(metadata);
@@ -37,11 +35,10 @@ function CreatePlot(id){
         var info = metadata.filter(x => x.id.toString() === id)[0];
 
         var demoinfo = d3.select('#sample-metadata');
-
         demoinfo.html("");
 
         Object.entries(info).forEach((x) => {
-            demoinfo.append("h4").text(x[0].toUpperCase()+ ": " + x[1] + "\n");
+            demoinfo.append("h4").text(x[0] + ": " + x[1]);
         });
 
         //----------BAR CHART--------------------------------------------------
@@ -53,14 +50,11 @@ function CreatePlot(id){
             orientation: "h"
         };
 
-        //add layout at the end 
-
         var bar_plot = [bar_trace];
         Plotly.newPlot("bar", bar_plot);
 
 
         //---------BUBBLE CHART------------------------------------------------
-
         var bubble_trace = {
             x:xSample.otu_ids,
             y:xSample.sample_values,
@@ -83,25 +77,23 @@ function CreatePlot(id){
 
 function init(){
 
-    var dropdown = d3.select("#selDataset");
+    var dropmenu = d3.select("#selDataset");
 
     d3.json("data/samples.json").then((data)=> {
 
-        data.names.forEach(function(name){
-        dropdown.append("option").text(name).property("value");
+        data.names.forEach(function(first){
+        dropmenu.append("option").text(first).property("value");
        
         });
 
         CreatePlot(data.names[0]);
-        //datasort(data.names[0]);
-    
+            
     });
 };
 
 // fuction called out in index.HTML, perfrom same look and plot when dropdown value is changed
 function optionChanged(id) {
     CreatePlot(id);
-    //datasort(id);
 };
 
 init();
